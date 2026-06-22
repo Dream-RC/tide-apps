@@ -1,0 +1,209 @@
+// ============================================================
+// Dock 样式（苹果风格 · 波浪联动）
+// 设计变量集中定义，便于主题定制与统一维护
+// ============================================================
+
+$dock-z-index:          1000;
+$dock-radius-list:      22px;
+$dock-radius-icon:      16px;
+$dock-height:           78px;
+$dock-icon-size:        54px;
+$dock-gap:              18px;
+$dock-padding-h:        12px;
+$dock-indicator-size:   6px;
+$dock-blur:             25px;
+
+// 弹性过渡：模拟 macOS Dock 的 Q 弹手感
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+$ease-soft:   cubic-bezier(0.25, 0.1, 0.25, 1);
+$dur-fast:    150ms;
+$dur-base:    220ms;
+$dur-slow:    300ms;
+
+$color-dock-border:    rgba(255, 255, 255, 0.07);
+$color-indicator:      rgba(0, 0, 0, 0.30);
+$color-indicator-on:   rgba(0, 0, 0, 0.70);
+
+$shadow-dock:  rgba(0, 0, 0, 0.25) 0 0 1px 0,
+               rgba(0, 0, 0, 0.08) 0 5px 10px -1.69px;
+$shadow-icon:  rgba(0, 0, 0, 0.20) 0 0 1px 0,
+               rgba(0, 0, 0, 0.05) 0 5.634px 8.451px -1.69px;
+$shadow-icon-hover: rgba(0, 0, 0, 0.30) 0 8px 20px -2px,
+                    rgba(0, 0, 0, 0.15) 0 4px 8px -2px;
+
+.dock {
+    // ---------- 容器 ----------
+    &-box {
+        position: fixed;
+        bottom: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: $dock-z-index;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px 16px 0;
+    }
+
+    &-click {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 4px; // 与下方 dock 保持间距
+    }
+
+    // 伸缩图标按钮
+    &-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        background: rgba(245, 245, 245, 0.25);
+        border: 0.5px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur($dock-blur);
+        -webkit-backdrop-filter: blur($dock-blur);
+        box-shadow: rgba(0, 0, 0, 0.10) 0 2px 6px -2px;
+        transition: transform $dur-base $ease-spring,
+                    background-color $dur-base $ease-soft,
+                    box-shadow $dur-base $ease-soft;
+
+        svg {
+            width: 16px;
+            height: 16px;
+            // 展开态：箭头朝下（SVG 原始方向）
+            path {
+                fill: rgba(7, 27, 65, 0.55);
+                transition: fill $dur-base $ease-soft,
+                            transform $dur-base $ease-spring;
+                transform-origin: center;
+                transform: rotate(0deg);
+            }
+        }
+
+        &:hover {
+            background: rgba(245, 245, 245, 0.50);
+            transform: translateY(-1px);
+
+            svg path {
+                fill: rgba(7, 27, 65, 0.90);
+            }
+        }
+
+        &:active {
+            transform: translateY(0) scale(0.94);
+        }
+
+        // 收起态：箭头旋转 180° 朝上
+        &.is-collapsed svg path {
+            transform: rotate(180deg);
+        }
+    }
+
+    // ---------- 导航 ----------
+    &-nav {
+        &-list {
+            display: flex;
+            align-items: flex-end;
+            gap: $dock-gap;
+            height: $dock-height;
+            padding-inline: $dock-padding-h;
+            user-select: none;
+            overflow: visible;
+            border-radius: $dock-radius-list;
+            border: 0.5px solid $color-dock-border;
+            background: var(--color-dock-bg);
+            backdrop-filter: blur($dock-blur);
+            -webkit-backdrop-filter: blur($dock-blur);
+            box-shadow: $shadow-dock;
+            // 收起动画：透明度 + 纵向缩放 + 底部上滑
+            transform-origin: bottom center;
+            transition: transform $dur-base $ease-spring,
+                        opacity $dur-base $ease-soft,
+                        height $dur-base $ease-soft,
+                        box-shadow $dur-base $ease-soft;
+            will-change: transform, opacity;
+
+            &.is-collapsed {
+                opacity: 0;
+                pointer-events: none;
+                height: 0;
+                min-width: 0;
+                transform: translateY(16px) scaleY(0.3);
+                box-shadow: none;
+                border-color: transparent;
+            }
+        }
+
+        &-item {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 6px;
+            padding-bottom: 2px;
+            cursor: pointer;
+            transform-origin: bottom center;
+            // 由 JS 根据鼠标位置动态注入：
+            //   --dock-scale：缩放（1 ~ 1.25）
+            //   --dock-y：向上位移像素（0 ~ +12）
+            //   --dock-x：水平推挤位移（远离鼠标，像素）
+            transform: translateX(var(--dock-x, 0px))
+                       translateY(calc(var(--dock-y, 0px) * -1))
+                       scale(var(--dock-scale, 1));
+            transition: transform $dur-base $ease-spring,
+                        z-index $dur-fast linear;
+            will-change: transform;
+
+            // 鼠标正下方的图标：高亮阴影与指示器
+            &.is-hover-target {
+                z-index: 10;
+
+                .dock-nav-item-icon {
+                    box-shadow: $shadow-icon-hover;
+                }
+
+                .dock-nav-item-indicator {
+                    opacity: 1;
+                    transform: scale(1.2);
+                    background: $color-indicator-on;
+                }
+            }
+
+            // 图标方块
+            &-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: $dock-icon-size;
+                height: $dock-icon-size;
+                border-radius: $dock-radius-icon;
+                background: var(--color-icon-bg);
+                backdrop-filter: blur($dock-blur);
+                -webkit-backdrop-filter: blur($dock-blur);
+                box-shadow: $shadow-icon;
+                transition: box-shadow $dur-base $ease-soft,
+                            transform $dur-base $ease-spring;
+
+                .dock-icon {
+                    transition: transform $dur-base $ease-spring;
+                }
+            }
+
+            // 底部激活小圆点
+            &-indicator {
+                margin-top: 4px;
+                width: $dock-indicator-size;
+                height: $dock-indicator-size;
+                border-radius: 999999px;
+                background: $color-indicator;
+                opacity: 0.6;
+                transition: opacity $dur-base $ease-soft,
+                            transform $dur-base $ease-spring,
+                            background-color $dur-base $ease-soft;
+            }
+        }
+    }
+}

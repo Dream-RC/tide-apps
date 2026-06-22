@@ -1,0 +1,156 @@
+import { ref } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+import { hasOneShowingChild } from "./menuUtils";
+import { pathResolve } from "@/common/utils/routerHelper";
+import { isUrl } from "@/common/utils/is";
+import { ChevronRight } from "lucide-vue-next";
+
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarInset,
+    SidebarMenu,
+    SidebarMenuAction,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarMenuSub,
+    SidebarMenuSubButton,
+    SidebarMenuSubItem,
+    SidebarProvider,
+    SidebarRail,
+    SidebarTrigger,
+} from "@/components/ui/sidebar";
+
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+
+// import { useRenderMenuTitle } from "./menuUtils";
+
+// import { useState } from "react";
+// import { Link } from "react-router";
+import { cn } from "@/lib/utils";
+import { useRenderMenuTitle } from "./useRenderMenuTitle";
+
+export const useRenderMenuItem = (menuSelect?: (key: string) => void) => {
+    const { renderMenuTitle } = useRenderMenuTitle();
+    // const [activeTeam] = useState(true);
+
+    const router = useRouter();
+    // 如果需要默认展开某些菜单，可以在这里设置
+    const expandedKeys = ref(new Set<string>());
+
+    const toggleExpand = (key: string) => {
+        const newSet = new Set(expandedKeys.value);
+        if (newSet.has(key)) {
+            newSet.delete(key);
+        } else {
+            newSet.add(key);
+        }
+        expandedKeys.value = newSet;
+    };
+
+    // 处理菜单项点击
+    const handleMenuItemClick = (key: string) => {
+        if (menuSelect) {
+            menuSelect(key);
+        }
+    };
+
+    const renderMenuItem = (
+        routers: AppRouteRecordRaw[],
+        parentPath = "/",
+    ) => {
+        return routers
+            .filter((v) => !v.meta?.hidden)
+            .map((v) => {
+                const meta = v.meta ?? {};
+                const { oneShowingChild, onlyOneChild } = hasOneShowingChild(
+                    v.children,
+                    v,
+                );
+                const fullPath = isUrl(v.path)
+                    ? v.path
+                    : pathResolve(parentPath, v.path);
+
+                // ===== 单子路由 =====
+                if (
+                    oneShowingChild &&
+                    (!onlyOneChild?.children ||
+                        onlyOneChild?.noShowingChildren) &&
+                    !meta?.alwaysShow
+                ) {
+                    const childPath = pathResolve(fullPath, onlyOneChild.path);
+                    return (
+                        <SidebarMenuItem key={childPath}>
+                            <SidebarMenuButton
+                                className="h-10 p-4"
+                                onClick={() => handleMenuItemClick(childPath)}
+                            >
+                                <RouterLink
+                                    to={childPath}
+                                    className=""
+                                    style={{ fontSize: "0.875rem" }}
+                                >
+                                    {renderMenuTitle(onlyOneChild?.meta)}
+                                </RouterLink>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    );
+                }
+
+                // 多子菜单，点击展开
+                const isOpen = expandedKeys.value.has(fullPath);
+
+                // ===== 多级菜单 =====
+                return (
+                    <Collapsible
+                        key={fullPath}
+                        open={isOpen}
+                        className="group/collapsible"
+                    >
+                        <CollapsibleTrigger asChild>
+                            {/* tooltip={meta.title} */}
+                            <SidebarMenuButton
+                                // className="gap-3 h-10"
+                                onClick={() => toggleExpand(fullPath)}
+                                className={cn(
+                                    "h-10 p-4",
+                                )}
+                            >
+                                {
+                                    /* {renderMenuTitle(meta)}
+                                <ChevronRight
+                                    class={`ms-auto transition-transform duration-300 ease-out ${
+                                        isOpen ? "rotate-90" : ""
+                                    }`}
+                                /> */
+                                }
+
+                                <div className={cn(
+                                    "flex items-center gap-3",
+                                )}>
+                                    {renderMenuTitle(onlyOneChild?.meta)}
+                                    <ChevronRight size={16} class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                </div>
+                            </SidebarMenuButton>
+                        </CollapsibleTrigger>
+
+                        <CollapsibleContent>
+                            <SidebarMenuSub>
+                                {renderMenuItem(v.children!, fullPath)}
+                            </SidebarMenuSub>
+                        </CollapsibleContent>
+                    </Collapsible>
+                );
+            });
+    };
+
+    return { renderMenuItem };
+};

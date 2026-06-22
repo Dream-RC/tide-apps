@@ -1,0 +1,10 @@
+//滚动条初始化
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #b9babd;
+    border-radius: 10px;
+}

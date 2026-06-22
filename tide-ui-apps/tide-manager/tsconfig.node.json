@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    // "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    // ========== 基础配置 ==========
+    // "target": "ES2023",
+    // "lib": ["ES2023"],
+    "module": "ESNext",
+    // // "types": ["node"],
+    // // "skipLibCheck": true,
+
+    // ========== 模块解析 ==========
+    "moduleResolution": "bundler",
+    // "allowImportingTsExtensions": true,
+    // // "verbatimModuleSyntax": true,
+    // // "moduleDetection": "force",
+    // "resolveJsonModule": true,
+    // "resolvePackageJsonExports": true,
+    // "resolvePackageJsonImports": true,
+    // "noEmit": true,
+    // /* Linting */
+    // // "strict": true,
+    // // "noUnusedLocals": true,
+    // // "noUnusedParameters": true,
+    // // "erasableSyntaxOnly": true,
+    // // "noFallthroughCasesInSwitch": true,
+    // // "noUncheckedSideEffectImports": true
+
+    // ========== Node 特有配置 ==========
+    "types": ["node"],
+    // ========== 路径别名 ==========
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["vite.config.ts"]
+}

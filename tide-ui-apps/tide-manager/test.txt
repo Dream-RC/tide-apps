@@ -1,0 +1,11 @@
+
+minio存储
+
+minio存储
+http://127.0.0.1:9000
+
+team-sync
+
+Ket44wsLEokeaCijlK3d
+gJiPRVEQjmnWBPZkj6gO3Doiz9Ok6dAwuviHU7XT
+http://127.0.0.1:48080/admin-api/infra/storage-file/1918555342745735169/get

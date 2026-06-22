@@ -1,0 +1,119 @@
+// .sidebar-content {
+//     scrollbar-width: none;
+// }
+
+// .layout-top-bar {
+//     height: 60px;
+//     position: fixed;
+//     top: 0;
+//     // padding: 10px;
+//     z-index: 100;
+//     // width: 100%;
+//     // background-color: var(--colors-common-black) !important;
+//     // border-radius: 20px;
+//     .menu {
+//         //position: relative;
+//         //box-sizing: border-box;
+//         display: flex;
+//         // justify-content: space-between;
+//         // background-color: var(--colors-common-black) !important;
+//         height: 100%;
+//         // width: 95%;
+//         padding: 6px;
+//         align-items: center;
+//         border-radius: 20px;
+//         // padding: 20px;
+//         // line-height: 60px;
+//         //user-select: none;
+
+//         .left {
+//             //line-height: 60px;
+//         }
+
+//         .right {
+
+//         }
+//     }
+
+//     // .btn {
+//     //     //display: block;
+//     //     width: 38px;
+//     //     height: 38px;
+//     //     line-height: 38px;
+//     //     //text-align: center;
+//     //     //cursor: pointer;
+//     //     //border-radius: 6px;
+//     //     //transition: all 0.2s;
+//     // }
+// }
+
+.layout-top-bar {
+    height: 60px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+
+    .top-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // padding: 0 20px;
+        height: 100%;
+        width: calc(100% - 304px);
+
+        .container-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .font-medium {
+                padding: 12px;
+            }
+        }
+    }
+}
+
+.menu-sidebar {
+    // width: 270px;
+    border-style: none;
+    -webkit-mask:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5)),
+        url(@/assets/noise/noise-01.png);
+
+    // height: calc(100vh - 80px) !important;
+    // position: fixed !important;
+    // top: 70px !important;
+    // left: 10px;
+
+    // border-radius: 20px;
+}
+
+.menu-title {
+    // color: var(--sidebar-foreground);
+    // font-family: font;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    // line-height: 1.25rem;
+    // fontSize: "14px", lineHeight: "1.25rem"
+}
+
+// .text-sidebar-foreground {
+//     width: 230px;
+// }
+
+//滚动条初始化
+// ::-webkit-scrollbar {
+//   width: 0px;
+//   border-radius: 10px;
+// }
+
+/* 隐藏滚动条样式 */
+.scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
