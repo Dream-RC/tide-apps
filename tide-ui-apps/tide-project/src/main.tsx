@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+
+import "@/plugins/tailwind/index.css";
+import "@/styles/index.scss";
+
 import {
   qiankunWindow,
   renderWithQiankun,
@@ -16,9 +20,9 @@ function render(props: any = {}) {
 
   root = ReactDOM.createRoot(mountEl);
   root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <App />
+    // </React.StrictMode>,
   );
 }
 
@@ -35,7 +39,7 @@ renderWithQiankun({
     root?.unmount();
     root = null;
   },
-  async update() {},
+  async update() { },
 });
 
 if (!qiankunWindow.__POWERED_BY_QIANKUN__) {

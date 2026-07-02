@@ -1,0 +1,17 @@
+@import url("../styles/font/font.css");
+
+body,
+html {
+    font-family: "";
+    // background: var(--background);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.table-colums-common {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+}

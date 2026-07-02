@@ -1,23 +1,26 @@
 @import url("../styles/font/font.css");
 
 //滚动条初始化
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-    background: #b9babd;
-    border-radius: 10px;
-}
+// ::-webkit-scrollbar {
+//     width: 5px;
+//     height: 5px;
+//     border-radius: 10px;
+// }
 
-body, html {
+// ::-webkit-scrollbar-thumb {
+//     background: #b9babd;
+//     border-radius: 10px;
+// }
+
+body,
+html {
     font-family: "";
-    //color: rgb(126, 126, 126) !important;
-    //min-width: 1200px;
-    //min-height: 600px;
-    //width: 100%;
-    //height: 100%;
+    background: var(--background);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
 }
 
 .table-colums-common {

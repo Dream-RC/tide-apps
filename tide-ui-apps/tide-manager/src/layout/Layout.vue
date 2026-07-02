@@ -32,9 +32,11 @@ export default defineComponent({
     name: 'Layout',
     setup() {
         return () => (
-            <section>
-                {renderLayout()}
-            </section>
+            <>
+                <section class="layout-container ">
+                    {renderLayout()}
+                </section>
+            </>
         )
     }
 })

@@ -10,11 +10,15 @@ const App = () => {
   const [router, setRouter] = useState<ReturnType<typeof createRouter> | null>(
     null,
   );
+  // 路由不重定向白名单
+  const whiteList = [
+    "/login",
+  ];
 
   useEffect(() => {
     const init = async () => {
-      const path = window.location.pathname;
 
+      const path = window.location.pathname;
       // if (!token) {
       //   if (path !== "/login") {
       //     window.location.href = `/login?redirect=${encodeURIComponent(path)}`;
@@ -30,26 +34,39 @@ const App = () => {
       // }
 
       if (getAccessToken()) {
+        // window.location.href = `/login?redirect=${encodeURIComponent(path)}`;
         if (path === "/login" || path === "/") {
           window.location.href = `/index`;
         } else {
+
+          const dictStore = useDictStore.getState();
+          const userStore = useUserStore.getState();
+
+
+          if (!dictStore.getIsSetDict()) {
+            dictStore.setDictMap();
+          }
+          if (!userStore.getIsSetUser()) {
+            userStore.setUserInfoAction();
+          }
+
+        }
+
+      } else {
+
+        if (whiteList.indexOf(path) !== -1) {
+
+        } else {
+          window.location.href = `/login?redirect=${encodeURIComponent(path)}`;
         }
       }
 
-      // const dictStore = useDictStore.getState();
-      // const userStore = useUserStore.getState();
-
-      // if (!dictStore.getIsSetDict()) {
-      //   dictStore.setDictMap();
-      // }
-      // if (!userStore.getIsSetUser()) {
-      //   userStore.setUserInfoAction();
-      // }
 
       // await usePermissionStore.getState().generateRoutes();
       // const dynamicRoutes = usePermissionStore.getState().getRouters();
       // console.log(dynamicRoutes);
       setRouter(createRouter());
+
     };
 
     init();

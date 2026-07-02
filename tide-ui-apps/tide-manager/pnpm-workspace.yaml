@@ -1,0 +1,4 @@
+allowBuilds:
+  '@carbon/icons': false
+  '@parcel/watcher': false
+  vue-demi: false

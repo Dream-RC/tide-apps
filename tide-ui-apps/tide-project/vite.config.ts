@@ -1,7 +1,6 @@
 import type { ConfigEnv, UserConfig } from "vite";
 import { createVitePlugins } from "./build/vite";
 import { loadEnv } from "vite";
-import { resolve } from "node:path";
 import path from "node:path";
 
 // 当前执行node命令时文件夹的地址(工作目录)

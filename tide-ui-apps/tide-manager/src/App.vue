@@ -3,6 +3,7 @@ import { Toaster } from 'vue-sonner';
 import { CACHE_KEY, useCache } from './common/hooks/web/useCache';
 import { isDark } from './common/utils/is';
 import NProgress from './components/chronos-ui/nprogress/NProgress.vue';
+import FluidBackground from './components/FluidBackground.vue';
 import { useAppStore } from './store/modules/app';
 
 const { wsCache } = useCache()
@@ -21,12 +22,13 @@ setDefaultTheme()
 
 
 
-
 </script>
 
 <template>
+    <!-- <FluidBackground /> -->
     <NProgress />
     <router-view />
     <Toaster theme="dark" :closeButton="true" closeButtonPosition="top-right" />
-
 </template>
+
+<style></style>

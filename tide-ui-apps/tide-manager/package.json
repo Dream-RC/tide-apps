@@ -30,6 +30,7 @@
     "shadcn-vue": "^2.4.3",
     "steady-xml": "^0.1.0",
     "tailwind-merge": "^3.5.0",
+    "three": "^0.185.0",
     "vaul-vue": "^0.4.1",
     "vee-validate": "^4.15.1",
     "vue": "^3.5.30",

@@ -166,7 +166,9 @@ const emit = defineEmits(['success']) // 定义 success 事件，用于操作成
 <style scoped lang="scss">
 .dict-type-card {
   width: 320px;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 78px);
+  box-shadow: none;
+
   // position: fixed;
   // display: flex;
   // flex-direction: column;
@@ -176,7 +178,7 @@ const emit = defineEmits(['success']) // 定义 success 事件，用于操作成
 
 .dict-data-card {
   width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 78px);
 }
 
 .dict-card-font {
@@ -193,10 +195,6 @@ const emit = defineEmits(['success']) // 定义 success 事件，用于操作成
   align-items: center;
   justify-content: space-between;
 }
-
-// .dict-header h2 {
-//   margin: 0;
-// }
 
 .dict-content {
   flex: 1;
@@ -218,4 +216,17 @@ const emit = defineEmits(['success']) // 定义 success 事件，用于操作成
   background: var(--border-color);
   border-radius: 3px;
 }
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #b9babd;
+    border-radius: 10px;
+}
+
+
 </style>

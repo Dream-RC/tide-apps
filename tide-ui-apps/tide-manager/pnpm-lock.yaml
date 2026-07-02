@@ -71,6 +71,9 @@ importers:
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.6.0
+      three:
+        specifier: ^0.185.0
+        version: 0.185.0
       vaul-vue:
         specifier: ^0.4.1
         version: 0.4.1(reka-ui@2.9.10(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -1795,8 +1798,8 @@ packages:
     deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
-  glob@7.2.3:
-    resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+  glob@7.2.0:
+    resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==}
     deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   gonzales-pe@4.3.0:
@@ -2789,6 +2792,9 @@ packages:
   tapable@2.3.3:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
+
+  three@0.185.0:
+    resolution: {integrity: sha512-+yRrcRO2iZa8uzvNNl0d7cL4huhgKgBvVJ0njcTe8xFqZ6DMAFZdCKDP91SEAuj25bNAj7k1QQdf+srZywVK6w==}
 
   time-span@5.1.0:
     resolution: {integrity: sha512-75voc/9G4rDIJleOo4jPvN4/YC4GRZrY8yy1uU4lwrB3XEQbWve8zXoO5No4eFrGcTAMYyoY67p8jRQdtA1HbA==}
@@ -4975,7 +4981,7 @@ snapshots:
       package-json-from-dist: 1.0.1
       path-scurry: 2.0.2
 
-  glob@7.2.3:
+  glob@7.2.0:
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -5903,7 +5909,7 @@ snapshots:
     dependencies:
       css: 3.0.0
       debug: 4.4.3
-      glob: 7.2.3
+      glob: 7.2.0
       safer-buffer: 2.1.2
       sax: 1.2.4
       source-map: 0.7.6
@@ -5937,6 +5943,8 @@ snapshots:
   tailwindcss@4.3.1: {}
 
   tapable@2.3.3: {}
+
+  three@0.185.0: {}
 
   time-span@5.1.0:
     dependencies:
